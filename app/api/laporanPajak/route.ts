@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server';
 import { MongoClient } from 'mongodb';
 
-const uri = process.env.MONGO_URI; // Ambil URI dari .env
+const uri = process.env.MONGO_URI as string; // Ambil URI dari .env
 const client = new MongoClient(uri);
 
 export async function GET() {
