@@ -69,3 +69,10 @@
     margin: 20mm;
   }
 }
+
+/* Tambahkan ini di file CSS Anda */
+@media (min-width: 768px) {
+  #logo-sidebar {
+    width: 256px; /* Lebar sidebar di desktop */
+  }
+}
