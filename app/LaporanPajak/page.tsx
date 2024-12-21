@@ -1,19 +1,44 @@
-// app/LaporanPajak/page.tsx
-'use client';
-
+'use client'
 import React, { useEffect, useState } from 'react';
 import TaxReport from '@/components/TaxReport';
 
+interface TaxData {
+  company: {
+    name: string;
+    npwp: string;
+    address: string;
+    phone: string;
+    email: string;
+  };
+  tax_reports: Array<{
+    year: number;
+    monthly_reports: Array<{
+      month: string;
+      income: number;
+      expenses: number;
+      taxable_income: number;
+      tax_paid: number;
+      status: string;
+    }>;
+  }>;
+  tax_officer: {
+    name: string;
+    position: string;
+    contact: string;
+  };
+  last_updated: string;
+}
+
 const LaporanPajak = () => {
-  const [dataPajak, setDataPajak] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // Define loading as a boolean
+  const [loading, setLoading] = useState<boolean>(true);
+  const [dataPajak, setDataPajak] = useState<TaxData[] | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch('/api/laporanPajak');
       const data = await response.json();
-      console.log(data); // Log the data to check its structure
-      setDataPajak(data); // Set the data directly
+      setDataPajak(data);
       setLoading(false);
     };
 
@@ -21,7 +46,7 @@ const LaporanPajak = () => {
   }, []);
 
   const handlePrint = () => {
-    window.print(); // Trigger the print dialog
+    window.print();
   };
 
   if (loading) {
